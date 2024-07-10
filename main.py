@@ -9,6 +9,7 @@ import os
 
 load_dotenv()
 
+INSTA_ROOT_URL = "https://www.instagram.com/"
 INSTA_USER = os.environ["INSTA_USERNAME"]
 INSTA_PW = os.environ["INSTA_PW"]
 INSTA_EMAIL = os.environ["INSTA_EMAIL"]
@@ -26,7 +27,8 @@ class InstaFollower:
 
     def login(self):
         self.driver.get("https://www.instagram.com/accounts/login/")
-        time.sleep(2)
+        time.sleep(3)
+
         username = self.driver.find_element(By.NAME, value="username")
         username.send_keys(INSTA_USER)
         password = self.driver.find_element(By.NAME, value="password")
@@ -50,7 +52,19 @@ class InstaFollower:
 
 
     def find_followers(self):
-        pass
+        self.driver.get(INSTA_ROOT_URL + SIMILAR_ACCT)
+        time.sleep(2)
+
+        followers_button = self.driver.find_element(By.PARTIAL_LINK_TEXT, value="followers")
+        followers_button.click()
+        time.sleep(3)
+
+        followers_popup_XPATH = "/html/body/div[6]/div[2]/div/div/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[3]"
+        popup = self.driver.find_element(By.XPATH, followers_popup_XPATH)
+        for i in range(5):
+            self.driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", popup)
+            time.sleep(2)
+
 
     def follow(self):
         pass
@@ -58,6 +72,6 @@ class InstaFollower:
 
 bot = InstaFollower()
 bot.login()
-# bot.find_followers()
+bot.find_followers()
 # bot.follow()
 
