@@ -59,11 +59,16 @@ class InstaFollower:
         followers_button.click()
         time.sleep(3)
 
-        followers_popup_XPATH = "/html/body/div[6]/div[2]/div/div/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[3]"
-        popup = self.driver.find_element(By.XPATH, followers_popup_XPATH)
-        for i in range(5):
-            self.driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", popup)
-            time.sleep(2)
+        follow_buttons = self.driver.find_elements(By.CSS_SELECTOR, value=".x1dm5mii button")
+        for account in follow_buttons[:5]:
+            account.click()
+
+
+        # followers_popup_XPATH = "/html/body/div[6]/div[2]/div/div/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[3]"
+        # popup = self.driver.find_element(By.XPATH, followers_popup_XPATH)
+        # for i in range(5):
+        #     self.driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", popup)
+        #     time.sleep(2)
 
 
     def follow(self):
