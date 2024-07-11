@@ -61,7 +61,9 @@ class InstaFollower:
 
         follow_buttons = self.driver.find_elements(By.CSS_SELECTOR, value=".x1dm5mii button")
         for account in follow_buttons[:5]:
+            time.sleep(1)
             account.click()
+            time.sleep(1)
 
 
         # followers_popup_XPATH = "/html/body/div[6]/div[2]/div/div/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[3]"
